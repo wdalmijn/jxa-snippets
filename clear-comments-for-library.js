@@ -1,7 +1,10 @@
 // Clear Comments from Library
 function clearCommentsForTracks(tracks) {
 	tracks.forEach(track => {
-		track.comment = '';
+        // Only clear files with comments
+		if (!!track.comment()) {
+			track.comment = '';
+		}
 	});
 }
 
