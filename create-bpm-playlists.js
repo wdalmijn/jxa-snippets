@@ -1,4 +1,5 @@
 const iTunes = Application('iTunes');
+const BPM_RANGE = 5;
 
 // Find the first folder with name, if it doesn't exist, create it
 function createFolderIfNotExists(name, parent) {
@@ -42,8 +43,8 @@ function runner() {
 	// create a new playlist. Add the track to the playlist.
 	iTunes.sources[0].tracks().forEach(track => {
 		const bpm = track.bpm();
-		const bucket = ((parseInt(bpm / 10, 10)) * 10);
-		const label = bucket > 0 ? `T${bucket}-${bucket+9}` : 'T-0-UNKNOWN';
+		const bucket = ((parseInt(bpm / BPM_RANGE, 10)) * BPM_RANGE);
+		const label = bucket > 0 ? `T${bucket}-${bucket + (BPM_RANGE-1)}` : 'T-0-UNKNOWN';
 		let playlist = bucketSubFolders[label];
 		if (!playlist) {
 			playlist = createPlaylistIfNotExists(label, bucketFolder);
